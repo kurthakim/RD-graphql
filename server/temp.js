@@ -12,7 +12,7 @@ const posts = [
   {
     id: 3,
     title: 'Third Post',
-    description: 'Third post description',
+    description: 'Third poost description',
   },
 ];
 
