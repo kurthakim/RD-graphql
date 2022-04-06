@@ -36,14 +36,14 @@ const Nav = () => {
 
           <ul className="navbar-nav d-flex flex-row me-1">
             <li className="nav-item me-3 me-lg-0">
-              <a className="nav-link" href="#">
+              <Link className="nav-link" to="#">
                 <i className="fas fa-shopping-cart"></i>
-              </a>
+              </Link>
             </li>
             <li className="nav-item me-3 me-lg-0">
-              <a className="nav-link" href="#">
+              <Link className="nav-link" to="#">
                 <i className="fab fa-twitter"></i>
-              </a>
+              </Link>
             </li>
           </ul>
 
