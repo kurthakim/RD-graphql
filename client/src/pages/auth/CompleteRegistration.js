@@ -2,6 +2,7 @@ import { auth } from '../../firebase';
 import { toast } from 'react-toastify';
 // TODO import { useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { signInWithEmailLink } from '@firebase/auth';
 
 const CompleteRegistration = () => {
   const [email, setEmail] = useState('');
@@ -12,9 +13,39 @@ const CompleteRegistration = () => {
 
   useEffect(() => {
     setEmail(window.localStorage.getItem('emailForRegistration'));
+
     // TODO }, [history]);
   }, []);
-  const handleSubmit = () => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    // validation
+    if (!email || !password) {
+      toast.error('Email and password is required');
+      return;
+    }
+    try {
+      const result = await signInWithEmailLink(
+        auth,
+        email,
+        window.location.href
+      );
+      // console.log(result);
+      if (result.user.emailVerified) {
+        // remove email from local storage
+        window.localStorage.removeItem('emailForRegistration');
+        let user = auth.currentUser;
+        await user.updatePassword(password);
+
+        // dispatch user with token and email
+        // then redirect
+      }
+    } catch (error) {
+      console.log('register complete error', error.message);
+      setLoading(false);
+      toast.error(error.message);
+    }
+  };
 
   return (
     <div className="container p-5">
