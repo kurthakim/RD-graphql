@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from 'react';
 import { signInWithEmailLink } from '@firebase/auth';
 import { AuthContext } from '../../context/authContext';
 import { useNavigate } from 'react-router-dom';
-import { updatePassword, onAuthStateChanged } from 'firebase/auth';
+import { updatePassword } from 'firebase/auth';
 
 const CompleteRegistration = () => {
   const navigate = useNavigate();
