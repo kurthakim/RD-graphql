@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { auth, sendSignInLinkToEmail } from '../../firebase';
+import { auth } from '../../firebase';
+import { sendSignInLinkToEmail } from 'firebase/auth';
 import { toast } from 'react-toastify';
 
 const Register = () => {
