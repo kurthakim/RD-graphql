@@ -1,6 +1,23 @@
-import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { auth } from '../firebase';
+import { AuthContext } from '../context/authContext';
+import { signOut } from 'firebase/auth';
 
 const Nav = () => {
+  const { state, dispatch } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { user } = state;
+
+  const logout = async () => {
+    await signOut(auth);
+    dispatch({
+      type: 'LOGGED_IN_USER',
+      payload: null,
+    });
+    navigate('/login');
+  };
+
   return (
     <nav className="navbar navbar-expand-lg bg-light navbar-light ">
       <div className="container-fluid">
@@ -32,6 +49,13 @@ const Nav = () => {
                 Register
               </Link>
             </li>
+            {user && (
+              <li className="nav-item">
+                <a href="/login" className="nav-item nav-link" onClick={logout}>
+                  Logout
+                </a>
+              </li>
+            )}
           </ul>
 
           <ul className="navbar-nav d-flex flex-row me-1">
