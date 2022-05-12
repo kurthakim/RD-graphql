@@ -10,7 +10,7 @@ const path = require('path');
 
 const { mergeTypeDefs, mergeResolvers } = require('@graphql-tools/merge');
 const { loadFilesSync } = require('@graphql-tools/load-files');
-
+const { authCheck } = require('./helpers/auth');
 // usage
 
 const typeDefs = mergeTypeDefs(
@@ -27,6 +27,7 @@ async function startServer() {
   const apolloServer = new ApolloServer({
     typeDefs,
     resolvers,
+    context: ({ req, res }) => ({ req, res }),
   });
 
   await apolloServer.start();
@@ -62,7 +63,7 @@ startServer();
 // const httpserver = http.createServer(app);
 
 // rest  endpoint
-app.get('/rest', function (req, res) {
+app.get('/rest', authCheck, function (req, res) {
   res.json({
     data: 'you hit rest endpoint',
   });
